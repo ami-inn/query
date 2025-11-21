@@ -107,4 +107,79 @@ It's an **async state manager** that is actually aware of the needs of server st
 - ⚡ **Optimistic Updates**
 - 🔄 **Background Refetching**
 
-<!-- 3 -->
+---
+
+## 📦 Package Naming
+
+### Why `@tanstack/react-query` not `react-query`?
+
+**TanStack** is the organization that maintains React Query along with other libraries like:
+- `react-table`
+- `react-virtual`
+- etc.
+
+Using the **scoped package name** (`@tanstack/react-query`) helps to:
+- ✅ Avoid naming conflicts
+- 📌 Indicate that it is part of the TanStack suite of tools
+
+---
+
+## 🎯 Query Client
+
+The **Query Client** provides a set of features to manage server state effectively, including:
+
+- 📍 The location where all the data lives
+- 📦 Contains and manages the cache
+- 💾 `this.cache = new Map();` - Stores cached query results
+
+### ⚠️ Important Setup Rule
+
+You need to make sure the **Query Client is outside of your React component tree** so that it is **not recreated on every render**.
+
+---
+
+## 🔌 QueryClientProvider
+
+Next is **QueryClientProvider** - wrap your app with it and pass in the query client instance.
+
+### 🔍 How It Works
+
+React Query uses the **context under the hood** to make the query client available to all components in the tree.
+
+> **Note:** Not for state management - used for **dependency injection**.
+
+---
+
+## 🔄 Re-rendering Behavior
+
+It will re-render only when the data changes or the fetching state changes.
+
+### 🤔 Key Questions
+
+- How does it know what data to use?
+- How does it know where to get the data from?
+
+---
+
+## 🔑 Query Key
+
+**Query Key** is the unique identifier for each query in React Query. It is used to cache and retrieve data associated with a specific query.
+
+The query key can be:
+- 📝 A simple string
+- 📋 A more complex array that includes parameters to uniquely identify the query
+
+---
+
+## ⚙️ Query Function
+
+**Query Function** is a function that fetches the data for a specific query. It is responsible for:
+- 🌐 Making the actual data request (such as an API call)
+- 📥 Returning the fetched data
+
+---
+
+## ✅ Requirements
+
+1. 🔑 The **query key** must be **unique**
+2. ⚡ The **query function** must **return a promise**

@@ -183,3 +183,51 @@ The query key can be:
 
 1. 🔑 The **query key** must be **unique**
 2. ⚡ The **query function** must **return a promise**
+
+
+---
+
+## 🔄 Deduplication
+
+### How It Works
+
+If we call the function twice with the same key, we get the same result.
+
+> **Example:** If you guess the UI is two different lucky numbers, you are wrong! They are the same because React Query caches the result based on query key.
+
+### 🌟 Main Feature
+
+**Deduplication** is one of the main features of React Query.
+
+#### Process:
+1. 💾 Put the value on the cache if the query key is the same
+2. 🔄 Take the value from cache instead of calling the query function again
+
+### 🎯 Benefits
+
+This is useful when you have multiple components that need the same data:
+- ✅ Instead of calling the API multiple times, React Query will call it **once**
+- 📤 Share the result with all the components
+- 🔗 Even if it's different component instances, as long as the query key is the same, React Query will share the result
+
+---
+
+## 👁️ Observer Pattern
+
+The **Observer Pattern** is used in React Query to achieve this functionality.
+
+### How It Works:
+- 🔄 When the data is updated, **all the components** that are using the same query key will be updated automatically
+- 🏢 This is very useful in **large applications** where multiple components need the same data
+
+<!-- 5 -->
+
+the query life cycle
+
+query status 
+pendin = the query is currently being fetched
+fulfilled = the query has been successfully fetched
+rejected = the query has failed to fetch
+two ways
+one is status === 'pending','success','error'
+the other is isLoading, isError, isSuccess, isFetching

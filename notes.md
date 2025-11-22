@@ -335,3 +335,8 @@ when reactquery fetches data
 refetchonmount = true means every time component mounts it will refetch data in background
 refetchonwindowfocus = true means every time window gets focus it will refetch data in background
 refetchonreconnect = true means every time device goes online it will refetch data in
+
+1 queries will always return data from the cache
+2 queries are instantly considered stale by default
+3 triggers wil cause stale queries to be refetched
+4 think abolut the staletime for each resources

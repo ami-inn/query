@@ -321,3 +321,17 @@ react query is an async promis base state manager
 all it care about status of data and it status
 
 npm i @tanstack/eslint-plugin-query its for linting react query hooks. its useful to avoid mistakes while using react query
+
+staletime = how long data is considered fresh. during this time react query will not refetch data in background
+default stale time is 0ms meaning data is always stale
+staledata < no dataa
+
+when reactquery fetches data
+1 the querykey changes
+2 a new observer is mounted with usequery
+3 the window recieves a focus event
+4 the device goes online
+
+refetchonmount = true means every time component mounts it will refetch data in background
+refetchonwindowfocus = true means every time window gets focus it will refetch data in background
+refetchonreconnect = true means every time device goes online it will refetch data in

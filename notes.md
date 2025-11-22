@@ -231,3 +231,34 @@ rejected = the query has failed to fetch
 two ways
 one is status === 'pending','success','error'
 the other is isLoading, isError, isSuccess, isFetching
+
+rebuilding react query from scratch
+what is cache and how it manage it?
+a cache is a piece of software that stores data so future requests for that data can be served faster
+in js this.cache = new Map();
+
+how do we prevent our component form re renderign on every update?
+these wher observers help us
+observers are the glue between the query cache and any react components and they live outside the react component tree
+its an object with a subscribe method and a notify method
+when a component wants to use some data from the cache it creates an observer and subscribes to it
+when the data in the cache changes the observer notifies all the components that are subscribed to it
+
+the queryclient provider
+the queryclient provider is a react component that provides the query client to the rest of the app
+it uses react context under the hood to make the query client available to all components in the tree
+
+the usequery hook
+the usequery hook is the main way to fetch data in react query
+it takes two arguments a query key and a query function
+the query key is a unique identifier for the query and the query function is a function that fetch
+the data for the query 
+when you call usequery it creates an observer and subscribes to it
+it then checks the cache to see if there is any data for the query key
+if there is it returns the data from the cache
+if there isn't it calls the query function to fetch the data
+once the data is fetched it is stored in the cache and all the components that are subscribed to the observer are notified
+
+
+strictmode
+in development environment strict mode will aggressively uncover renders that are not pure or that have incorrectly managed side effects

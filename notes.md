@@ -220,45 +220,104 @@ The **Observer Pattern** is used in React Query to achieve this functionality.
 - 🔄 When the data is updated, **all the components** that are using the same query key will be updated automatically
 - 🏢 This is very useful in **large applications** where multiple components need the same data
 
-<!-- 5 -->
+---
 
-the query life cycle
+## 🔄 The Query Life Cycle
 
-query status 
-pendin = the query is currently being fetched
-fulfilled = the query has been successfully fetched
-rejected = the query has failed to fetch
-two ways
-one is status === 'pending','success','error'
-the other is isLoading, isError, isSuccess, isFetching
+### 📊 Query Status
 
-rebuilding react query from scratch
-what is cache and how it manage it?
-a cache is a piece of software that stores data so future requests for that data can be served faster
-in js this.cache = new Map();
+The query can have three states:
 
-how do we prevent our component form re renderign on every update?
-these wher observers help us
-observers are the glue between the query cache and any react components and they live outside the react component tree
-its an object with a subscribe method and a notify method
-when a component wants to use some data from the cache it creates an observer and subscribes to it
-when the data in the cache changes the observer notifies all the components that are subscribed to it
+- ⏳ **Pending** - The query is currently being fetched
+- ✅ **Fulfilled** - The query has been successfully fetched
+- ❌ **Rejected** - The query has failed to fetch
 
-the queryclient provider
-the queryclient provider is a react component that provides the query client to the rest of the app
-it uses react context under the hood to make the query client available to all components in the tree
+### 🎯 Two Ways to Check Status
 
-the usequery hook
-the usequery hook is the main way to fetch data in react query
-it takes two arguments a query key and a query function
-the query key is a unique identifier for the query and the query function is a function that fetch
-the data for the query 
-when you call usequery it creates an observer and subscribes to it
-it then checks the cache to see if there is any data for the query key
-if there is it returns the data from the cache
-if there isn't it calls the query function to fetch the data
-once the data is fetched it is stored in the cache and all the components that are subscribed to the observer are notified
+**Method 1:** Using status string
+```javascript
+status === 'pending', 'success', 'error'
+```
 
+**Method 2:** Using boolean flags
+```javascript
+isLoading, isError, isSuccess, isFetching
+```
 
-strictmode
-in development environment strict mode will aggressively uncover renders that are not pure or that have incorrectly managed side effects
+---
+
+## 🏗️ Rebuilding React Query from Scratch
+
+### 💾 What is Cache and How Does It Manage It?
+
+A **cache** is a piece of software that stores data so future requests for that data can be served faster.
+
+In JavaScript:
+```javascript
+this.cache = new Map();
+```
+
+---
+
+## 🛡️ Preventing Re-renders
+
+### How do we prevent our component from re-rendering on every update?
+
+This is where **observers** help us!
+
+### 👁️ Observers
+
+**Observers** are the glue between the query cache and any React components, and they **live outside the React component tree**.
+
+#### Structure:
+- 📦 It's an object with a `subscribe` method and a `notify` method
+
+#### How It Works:
+1. 🔌 When a component wants to use some data from the cache, it creates an observer and subscribes to it
+2. 🔔 When the data in the cache changes, the observer notifies all the components that are subscribed to it
+
+---
+
+## 🔌 The QueryClient Provider
+
+The **QueryClientProvider** is a React component that provides the query client to the rest of the app.
+
+- 🌐 It uses **React Context** under the hood to make the query client available to all components in the tree
+
+---
+
+## 🪝 The useQuery Hook
+
+The **useQuery** hook is the main way to fetch data in React Query.
+
+### 📋 Parameters
+
+It takes two arguments:
+1. 🔑 **Query Key** - A unique identifier for the query
+2. ⚙️ **Query Function** - A function that fetches the data for the query
+
+### 🔄 How It Works
+
+When you call `useQuery`:
+
+1. 👁️ It creates an observer and subscribes to it
+2. 🔍 It then checks the cache to see if there is any data for the query key
+3. ✅ **If there is** - It returns the data from the cache
+4. ❌ **If there isn't** - It calls the query function to fetch the data
+5. 💾 Once the data is fetched, it is stored in the cache
+6. 🔔 All the components that are subscribed to the observer are notified
+
+---
+
+## ⚠️ Strict Mode
+
+In **development environment**, Strict Mode will aggressively uncover:
+- 🔍 Renders that are not pure
+- ⚡ Side effects that have been incorrectly managed
+- 
+<!-- 6 -->
+
+react query is an async promis base state manager
+all it care about status of data and it status
+
+npm i @tanstack/eslint-plugin-query its for linting react query hooks. its useful to avoid mistakes while using react query

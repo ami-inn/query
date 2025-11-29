@@ -315,28 +315,80 @@ In **development environment**, Strict Mode will aggressively uncover:
 - 🔍 Renders that are not pure
 - ⚡ Side effects that have been incorrectly managed
 - 
-<!-- 6 -->
+---
 
-react query is an async promis base state manager
-all it care about status of data and it status
+## 🎯 What is React Query?
 
-npm i @tanstack/eslint-plugin-query its for linting react query hooks. its useful to avoid mistakes while using react query
+React Query is an **async promise-based state manager**.
 
-staletime = how long data is considered fresh. during this time react query will not refetch data in background
-default stale time is 0ms meaning data is always stale
-staledata < no dataa
+All it cares about is:
+- 📊 Status of data
+- 🔄 Its status
 
-when reactquery fetches data
-1 the querykey changes
-2 a new observer is mounted with usequery
-3 the window recieves a focus event
-4 the device goes online
+---
 
-refetchonmount = true means every time component mounts it will refetch data in background
-refetchonwindowfocus = true means every time window gets focus it will refetch data in background
-refetchonreconnect = true means every time device goes online it will refetch data in
+## 🔧 ESLint Plugin
 
-1 queries will always return data from the cache
-2 queries are instantly considered stale by default
-3 triggers wil cause stale queries to be refetched
-4 think abolut the staletime for each resources
+```bash
+npm i @tanstack/eslint-plugin-query
+```
+
+This is for **linting React Query hooks**. It's useful to avoid mistakes while using React Query.
+
+---
+
+## ⏰ Stale Time
+
+**Stale Time** = How long data is considered fresh. During this time, React Query will **not** refetch data in background.
+
+- ⚙️ **Default stale time is 0ms** - Meaning data is always stale
+- 💡 **Important:** Stale data < No data
+
+---
+
+## 🔄 When React Query Fetches Data
+
+React Query fetches data when:
+
+1. 🔑 The query key changes
+2. 👁️ A new observer is mounted with `useQuery`
+3. 🪟 The window receives a focus event
+4. 🌐 The device goes online
+
+---
+
+## ⚙️ Refetch Configuration
+
+### `refetchOnMount = true`
+Every time component mounts, it will refetch data in background
+
+### `refetchOnWindowFocus = true`
+Every time window gets focus, it will refetch data in background
+
+### `refetchOnReconnect = true`
+Every time device goes online, it will refetch data in background
+
+---
+
+## 📝 Key Principles
+
+1. 💾 Queries will **always** return data from the cache
+2. ⚡ Queries are **instantly considered stale** by default
+3. 🔄 Triggers will cause stale queries to be refetched
+4. 🤔 Think about the **stale time** for each resource
+
+---
+
+## 🗑️ Automatic Garbage Collection of Unused Queries
+
+### What is Garbage Collection?
+
+**Garbage Collection** is a form of memory management where memory that has been allocated by a program will be automatically released when no longer needed.
+
+### 🎯 React Query Does It Well
+
+React Query uses **gcTime** (garbage collection timeout) to remove unused queries from cache.
+
+#### Example:
+- 🔍 On search, if you use the same search term again, it will use the cached data if it's still in cache
+- ⏱️ If you enable gcTime, it will remove unused queries from cache after the specified time

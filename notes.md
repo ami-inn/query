@@ -392,3 +392,41 @@ React Query uses **gcTime** (garbage collection timeout) to remove unused querie
 #### Example:
 - 🔍 On search, if you use the same search term again, it will use the cached data if it's still in cache
 - ⏱️ If you enable gcTime, it will remove unused queries from cache after the specified time
+
+
+<!-- 7 -->
+
+polling data
+
+query will always return data from the cache
+queries are instantly considered stale by default
+triggers will cause stale queries to be refetched
+polling means refetching data at regular intervals
+refetchinterval set a time then query will refetch the data
+
+refetchinterval is best suited for scenarios where you have data that changes often and you always want the cache to be as up to date as possible
+
+fetching data
+static endpoints
+dynamic parameters
+on demand refetching
+
+multiple request in one query function
+
+pros
+single error and loading state
+
+cons
+data is cached in a single entry
+
+both fetch and refetch together
+they will error together
+theres no deduplication for either request
+
+if we cached in seperately will have more flexibility
+
+lazy queries
+waiting for userinput then query will run
+
+dependent queries
+one query depends on the result of another query

@@ -466,3 +466,7 @@ in this case the best way to use iss usequeries hook from react query
 
 enables the ability to create an arbitary number of queries based on some input
 usequeries gives you the flexcibility to creat an arbitary number of queries all in parellel and then derive any value you need from all the queries as a whole
+
+to avoid loading indicator we use prefetching on mouse enter event
+its entirely likely that even with prefetching the user will still see a loading indicator
+if the repsonse is slow

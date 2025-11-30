@@ -394,39 +394,75 @@ React Query uses **gcTime** (garbage collection timeout) to remove unused querie
 - ⏱️ If you enable gcTime, it will remove unused queries from cache after the specified time
 
 
-<!-- 7 -->
+---
 
-polling data
+## 📊 Polling Data
 
-query will always return data from the cache
-queries are instantly considered stale by default
-triggers will cause stale queries to be refetched
-polling means refetching data at regular intervals
-refetchinterval set a time then query will refetch the data
+### 🔄 Key Concepts
 
-refetchinterval is best suited for scenarios where you have data that changes often and you always want the cache to be as up to date as possible
+- 💾 Query will always return data from the cache
+- ⚡ Queries are instantly considered stale by default
+- 🔄 Triggers will cause stale queries to be refetched
 
-fetching data
-static endpoints
-dynamic parameters
-on demand refetching
+### What is Polling?
 
-multiple request in one query function
+**Polling** means refetching data at regular intervals.
 
-pros
-single error and loading state
+### ⏱️ refetchInterval
 
-cons
-data is cached in a single entry
+Set a time, then query will refetch the data automatically.
 
-both fetch and refetch together
-they will error together
-theres no deduplication for either request
+#### 💡 Best Use Case:
+`refetchInterval` is best suited for scenarios where:
+- 📈 You have data that changes often
+- 🔄 You always want the cache to be as up to date as possible
 
-if we cached in seperately will have more flexibility
+---
 
-lazy queries
-waiting for userinput then query will run
+## 🌐 Fetching Data
 
-dependent queries
-one query depends on the result of another query
+### Types of Fetching:
+- 📌 **Static endpoints**
+- 🔀 **Dynamic parameters**
+- 🎯 **On-demand refetching**
+
+---
+
+## 🔀 Multiple Requests in One Query Function
+
+### ✅ Pros
+- 🎯 Single error and loading state
+
+### ❌ Cons
+- 💾 Data is cached in a single entry
+- 🔄 Both fetch and refetch together
+- ⚠️ They will error together
+- 🚫 There's no deduplication for either request
+
+### 💡 Better Approach:
+If we cache them **separately**, we will have more flexibility.
+
+---
+
+## 🦥 Lazy Queries
+
+**Lazy Queries** = Waiting for user input, then query will run.
+
+---
+
+## 🔗 Dependent Queries
+
+**Dependent Queries** = One query depends on the result of another query.
+
+
+<!-- 5 -->
+
+parallel queries
+
+in real life you will not always fetch from one resource sometimes you need to fetch from multiple resources at the same time these are called parallel queries
+the more you can do in parellel the better
+
+in this case the best way to use iss usequeries hook from react query
+
+enables the ability to create an arbitary number of queries based on some input
+usequeries gives you the flexcibility to creat an arbitary number of queries all in parellel and then derive any value you need from all the queries as a whole

@@ -470,3 +470,9 @@ usequeries gives you the flexcibility to creat an arbitary number of queries all
 to avoid loading indicator we use prefetching on mouse enter event
 its entirely likely that even with prefetching the user will still see a loading indicator
 if the repsonse is slow
+
+
+pagination
+its a technique to split large data sets into smaller chunks or pages
+this improves performance and user experience by reducing the amount of data that needs to be loaded and displayed
+along with data the reponse contains metadata about the pagination state such as current page total pages and items per page

@@ -476,3 +476,24 @@ pagination
 its a technique to split large data sets into smaller chunks or pages
 this improves performance and user experience by reducing the amount of data that needs to be loaded and displayed
 along with data the reponse contains metadata about the pagination state such as current page total pages and items per page
+
+
+infinite scroll
+infinite scrolling is a technique where more data is loaded as the user scrolls down the page
+this creates a seamless browsing experience as users can continuously scroll through content without having to click on pagination
+we need a single cache entry that we can append to every time we get new data
+
+instead of managing the pagge stazte in react u useinfinitequery hook from react query will manage it for you
+how it works
+you provide a query function that fetches a page of data and a getnextpageparam function that tells react query how to get the next page parameter from the last page of data
+react query will automatically call the query function with the correct page parameter when you call fetchnextpage
+it will also manage the cache for you appending new pages of data to the existing cache entry
+### 🧩 Combining Dependent and Lazy Queries
+You can combine dependent and lazy queries by using the `enabled` option in `useQuery`. 
+This allows you to wait for certain conditions to be met before executing a query.
+
+useinfitequery hook
+an infinite query is only one cache entry so while each page is seperatefetch they evertually from one long lis in our ui
+consistency
+with infinite queries react query ensures that all pages of data are consistent with each other
+if one page becomes stale all pages become stale

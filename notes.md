@@ -578,3 +578,9 @@ fuzzyquery key matching
 React Query provides utilities to help with this, such as `invalidateQueries` and `refetchQueries`, which allow you to refresh data in the cache based on partial matches of query keys.
 
 note if you structure you querykeys appropriatedly relying on fuzzy matchin g you can invalidate a whole subset of queries with a single call to invalidateQueries
+
+optimistic updates for mutations
+
+principle
+if you already know what the final u i should look like after the muttion show ther user the result of their action immediately
+then send the mutation to the server in the background

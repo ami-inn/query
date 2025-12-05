@@ -644,3 +644,123 @@ If your application grows, it's complex to manage query keys manually.
 1. 🏗️ Create **one factory per feature**
 2. 🏷️ Have all query keys in that factory start with the **same prefix**
 3. 📝 Usually the name of the feature
+
+
+---
+
+## ⚡ Performance Optimization
+
+When it comes to rendering, it's usually a good idea to find ways to make the component **renders faster** rather than **render less often**.
+
+---
+
+## 🔗 Referential Equality
+
+### How React.memo Works
+
+The way React.memo works is it only changes if the **reference of the props changes**. But that brings up the question: **How does React determine if the reference has changed?**
+
+### What is Referential Equality?
+
+**Referential equality** means that two objects are considered equal if they point to the **same location in memory**.
+
+### 📊 How It Works:
+
+- ✅ For **primitive values** (like numbers and strings), referential equality works as expected
+- ⚠️ For **objects and arrays**, it's a bit trickier because even if two objects have the same properties and values, they are **not considered equal** unless they point to the same location in memory
+
+---
+
+## 🧠 Memoization Hooks
+
+### `useMemo`
+Lets you **cache the result of a calculation** between renders
+
+### `useCallback`
+Lets you **cache a function itself** between renders
+
+---
+
+## 🔍 What's It Doing with React Query?
+
+React Query uses `useMemo` and `useCallback` internally to optimize the performance of its hooks and components.
+
+---
+
+## 🔧 How Do We Solve This?
+
+### 🌲 Structural Sharing
+
+**Structural sharing** is a technique where we reuse parts of an object or array that have **not changed**.
+
+#### How It Works:
+
+1. 🔄 Instead of creating a new object or array every time we make a change
+2. ♻️ We create a new object or array that **shares the unchanged parts** with the previous version
+3. ✅ This way we can ensure that the references of the unchanged parts remain the same
+4. 🎯 React can correctly determine if the props have changed or not
+
+---
+
+## 👁️ Observers and Referential Equality
+
+### What Are Observers?
+
+React Query uses **observers** to manage the state of its queries and mutations.
+
+**Observers** are objects that:
+- 📡 Subscribe to changes in the query or mutation state
+- 🔔 Notify the components when there are changes
+
+### 🎯 Performance Optimization
+
+To optimize the performance of observers, React Query uses **structural sharing** to ensure that the references of the unchanged parts of the query or mutation state remain the same.
+
+This way:
+- ✅ React can correctly determine if the props have changed or not
+- 🚫 Avoid unnecessary re-renders
+
+---
+
+## 📊 Tracked Properties
+
+React Query uses a technique called **tracked properties** to optimize the performance of its hooks and components.
+
+### What Are Tracked Properties?
+
+**Tracked properties** are properties of an object that are **monitored for changes**.
+
+### 🔄 How It Works:
+
+1. 👀 When a tracked property changes, React Query notifies the components that are subscribed to the observer
+2. 🎯 This way React Query can ensure that **only the components that are affected by the change** are re-rendered
+3. ⚡ This way we can avoid unnecessary re-renders and improve the performance of our application
+
+---
+
+## ⚠️ Important Warning
+
+When using `useQuery`, **do not** use it with rest operators like:
+- 🚫 Spread operator (`...`)
+- 🚫 `Object.assign`
+
+---
+
+## 🔄 Refetch Signals
+
+React Query will refetch when:
+
+1. 🔑 The query key changes
+2. 👁️ A new observer is mounted with `useQuery`
+3. 🪟 The window receives a focus event
+4. 🌐 The device goes online
+
+
+<!-- 8 -->
+
+error handling\
+what happens when things fails
+
+if using try catch and catch only logging not returning issues
+react query dont knwo the status of the query unless we tell it\
+react query wont be able to refetch or retry if it doesnt know the query failed

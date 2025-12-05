@@ -455,45 +455,126 @@ If we cache them **separately**, we will have more flexibility.
 **Dependent Queries** = One query depends on the result of another query.
 
 
-<!-- 5 -->
+---
 
-parallel queries
+## ⚡ Parallel Queries
 
-in real life you will not always fetch from one resource sometimes you need to fetch from multiple resources at the same time these are called parallel queries
-the more you can do in parellel the better
+### What Are Parallel Queries?
 
-in this case the best way to use iss usequeries hook from react query
+In real life, you will not always fetch from one resource. Sometimes you need to fetch from **multiple resources at the same time** - these are called **parallel queries**.
 
-enables the ability to create an arbitary number of queries based on some input
-usequeries gives you the flexcibility to creat an arbitary number of queries all in parellel and then derive any value you need from all the queries as a whole
+> 💡 **Rule of thumb:** The more you can do in parallel, the better.
 
-to avoid loading indicator we use prefetching on mouse enter event
-its entirely likely that even with prefetching the user will still see a loading indicator
-if the repsonse is slow
+### 🔧 Using `useQueries` Hook
 
+In this case, the best way to use is the **`useQueries`** hook from React Query.
 
-pagination
-its a technique to split large data sets into smaller chunks or pages
-this improves performance and user experience by reducing the amount of data that needs to be loaded and displayed
-along with data the reponse contains metadata about the pagination state such as current page total pages and items per page
+#### 🎯 Features:
+- ✨ Enables the ability to create an arbitrary number of queries based on some input
+- 🔄 Gives you the flexibility to create an arbitrary number of queries all in parallel
+- 📊 Derive any value you need from all the queries as a whole
 
+---
 
-infinite scroll
-infinite scrolling is a technique where more data is loaded as the user scrolls down the page
-this creates a seamless browsing experience as users can continuously scroll through content without having to click on pagination
-we need a single cache entry that we can append to every time we get new data
+## 🚀 Prefetching
 
-instead of managing the pagge stazte in react u useinfinitequery hook from react query will manage it for you
-how it works
-you provide a query function that fetches a page of data and a getnextpageparam function that tells react query how to get the next page parameter from the last page of data
-react query will automatically call the query function with the correct page parameter when you call fetchnextpage
-it will also manage the cache for you appending new pages of data to the existing cache entry
+To avoid loading indicators, we use **prefetching on mouse enter event**.
+
+⚠️ **Note:** It's entirely likely that even with prefetching, the user will still see a loading indicator if the response is slow.
+
+---
+
+## 📄 Pagination
+
+### What is Pagination?
+
+**Pagination** is a technique to split large data sets into smaller chunks or pages.
+
+### 🎯 Benefits:
+- ⚡ Improves performance
+- 👤 Enhances user experience
+- 📉 Reduces the amount of data that needs to be loaded and displayed
+
+### 📊 Metadata
+
+Along with data, the response contains **metadata** about the pagination state, such as:
+- 📍 Current page
+- 📚 Total pages
+- 🔢 Items per page
+
+---
+
+## ♾️ Infinite Scroll
+
+### What is Infinite Scrolling?
+
+**Infinite scrolling** is a technique where more data is loaded as the user scrolls down the page.
+
+### 🎯 Benefits:
+- 🌊 Creates a seamless browsing experience
+- 🔄 Users can continuously scroll through content
+- 🚫 No need to click on pagination buttons
+
+### 💾 Cache Strategy
+
+We need a **single cache entry** that we can append to every time we get new data.
+
+---
+
+## 🪝 useInfiniteQuery Hook
+
+Instead of managing the page state in React, the **`useInfiniteQuery`** hook from React Query will manage it for you.
+
+### 🔄 How It Works:
+
+1. 📝 You provide a **query function** that fetches a page of data
+2. ➡️ You provide a **`getNextPageParam`** function that tells React Query how to get the next page parameter from the last page of data
+3. 🤖 React Query will automatically call the query function with the correct page parameter when you call `fetchNextPage`
+4. 💾 It will also manage the cache for you, appending new pages of data to the existing cache entry
+
 ### 🧩 Combining Dependent and Lazy Queries
-You can combine dependent and lazy queries by using the `enabled` option in `useQuery`. 
+
+You can combine dependent and lazy queries by using the **`enabled`** option in `useQuery`.
+
 This allows you to wait for certain conditions to be met before executing a query.
 
-useinfitequery hook
-an infinite query is only one cache entry so while each page is seperatefetch they evertually from one long lis in our ui
-consistency
-with infinite queries react query ensures that all pages of data are consistent with each other
-if one page becomes stale all pages become stale
+---
+
+## 🔑 Important Notes on useInfiniteQuery Hook
+
+### Single Cache Entry:
+- 📦 An infinite query is only **one cache entry**
+- 🔄 While each page is a separate fetch, they eventually form one long list in our UI
+
+### 🔄 Consistency
+
+With infinite queries, React Query ensures that **all pages of data are consistent** with each other.
+
+> ⚠️ **Rule:** If one page becomes stale, **all pages become stale**.
+>
+
+<!-- 6 -->
+
+mutation
+This is important to maintain data integrity across the entire dataset.
+
+using query for update the dataset on the database
+queries run immediattely when the component mounts
+queries are meant to run multiple times
+queries should be idempotent
+
+usemutation for updating the dataset on the database
+mutations run only when we call them
+
+manages the lifecycle of a mutation rather thn directly performing the mutation itself
+you will get status flags and lifecycle callbacks to track the progress of a mutation
+onsuccess
+onerror
+onsettled
+---
+after server state has changed its usually a good idea to verify you have the latest data inthe cache
+
+fuzzyquery key matching
+React Query provides utilities to help with this, such as `invalidateQueries` and `refetchQueries`, which allow you to refresh data in the cache based on partial matches of query keys.
+
+note if you structure you querykeys appropriatedly relying on fuzzy matchin g you can invalidate a whole subset of queries with a single call to invalidateQueries

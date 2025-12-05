@@ -584,3 +584,15 @@ optimistic updates for mutations
 principle
 if you already know what the final u i should look like after the muttion show ther user the result of their action immediately
 then send the mutation to the server in the background
+
+anytime the user needs instant feedback of an async operation optimistic updates are  usually the way to go
+
+
+/ customising defaults
+react query gives you a lot of flexibilitly when it comes to customising default behaviours
+
+querydefaults will allow you to set default options for all queries
+
+
+/ manage querykeys 
+if application grows its complex to manage query keys manually

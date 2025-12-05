@@ -764,3 +764,24 @@ what happens when things fails
 if using try catch and catch only logging not returning issues
 react query dont knwo the status of the query unless we tell it\
 react query wont be able to refetch or retry if it doesnt know the query failed
+
+we can throw errors inside the query function\
+then react query will be able to catch it and set the status to error
+status we can use to identify the error state in the ui
+
+debugging error from async dta can be difficult
+validation
+we can use zod or yup to validate the data we get from the server
+zod lets you define the expected shape of a respnse and validate the response against schema
+
+zod benefits
+saves memory in the cache by stripping unused data
+throws error when data is not in expected format
+
+zod tradeoffs
+runtime type checking adds overhead
+additional dependency
+expensive for large data structures
+
+
+offline support\

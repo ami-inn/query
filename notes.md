@@ -553,46 +553,94 @@ With infinite queries, React Query ensures that **all pages of data are consiste
 > ⚠️ **Rule:** If one page becomes stale, **all pages become stale**.
 >
 
-<!-- 6 -->
-
-mutation
-This is important to maintain data integrity across the entire dataset.
-
-using query for update the dataset on the database
-queries run immediattely when the component mounts
-queries are meant to run multiple times
-queries should be idempotent
-
-usemutation for updating the dataset on the database
-mutations run only when we call them
-
-manages the lifecycle of a mutation rather thn directly performing the mutation itself
-you will get status flags and lifecycle callbacks to track the progress of a mutation
-onsuccess
-onerror
-onsettled
 ---
-after server state has changed its usually a good idea to verify you have the latest data inthe cache
 
-fuzzyquery key matching
-React Query provides utilities to help with this, such as `invalidateQueries` and `refetchQueries`, which allow you to refresh data in the cache based on partial matches of query keys.
+## 🔄 Mutation
 
-note if you structure you querykeys appropriatedly relying on fuzzy matchin g you can invalidate a whole subset of queries with a single call to invalidateQueries
+This is important to maintain **data integrity** across the entire dataset.
 
-optimistic updates for mutations
+---
 
-principle
-if you already know what the final u i should look like after the muttion show ther user the result of their action immediately
-then send the mutation to the server in the background
+## 📊 Using Query vs Mutation
 
-anytime the user needs instant feedback of an async operation optimistic updates are  usually the way to go
+### 🔍 Using Query for Updating the Dataset on the Database
 
+- ⚡ Queries run **immediately** when the component mounts
+- 🔄 Queries are meant to run **multiple times**
+- 🔁 Queries should be **idempotent**
 
-/ customising defaults
-react query gives you a lot of flexibilitly when it comes to customising default behaviours
+### ✏️ Using Mutation for Updating the Dataset on the Database
 
-querydefaults will allow you to set default options for all queries
+- 🎯 Mutations run **only when we call them**
 
+---
 
-/ manage querykeys 
-if application grows its complex to manage query keys manually
+## 🪝 useMutation Hook
+
+Manages the **lifecycle of a mutation** rather than directly performing the mutation itself.
+
+### 📊 What You Get:
+
+You will get **status flags** and **lifecycle callbacks** to track the progress of a mutation:
+
+- ✅ **onSuccess** - Called when mutation succeeds
+- ❌ **onError** - Called when mutation fails
+- 🏁 **onSettled** - Called when mutation completes (success or error)
+
+---
+
+## 🔄 Cache Validation
+
+After server state has changed, it's usually a good idea to verify you have the **latest data in the cache**.
+
+---
+
+## 🔍 Fuzzy Query Key Matching
+
+React Query provides utilities to help with this, such as:
+- 🗑️ **`invalidateQueries`** - Invalidate queries based on partial key matches
+- 🔄 **`refetchQueries`** - Refetch queries based on partial key matches
+
+These allow you to refresh data in the cache based on **partial matches** of query keys.
+
+### 💡 Important Note:
+
+If you structure your query keys appropriately, relying on **fuzzy matching**, you can invalidate a whole subset of queries with a single call to `invalidateQueries`.
+
+---
+
+## ⚡ Optimistic Updates for Mutations
+
+### 🎯 Principle:
+
+If you already know what the final UI should look like after the mutation:
+1. 👁️ Show the user the result of their action **immediately**
+2. 📡 Then send the mutation to the server in the background
+
+### 💡 When to Use:
+
+Anytime the user needs **instant feedback** of an async operation, optimistic updates are usually the way to go.
+
+---
+
+## ⚙️ Customizing Defaults
+
+React Query gives you a lot of **flexibility** when it comes to customizing default behaviors.
+
+### 📋 Query Defaults
+
+**`queryDefaults`** will allow you to set default options for all queries.
+
+---
+
+## 🔑 Managing Query Keys
+
+### 📈 As Applications Grow
+
+If your application grows, it's complex to manage query keys manually.
+
+### 🏭 Best Practice - Query Key Factory:
+
+1. 🏗️ Create **one factory per feature**
+2. 🏷️ Have all query keys in that factory start with the **same prefix**
+3. 📝 Usually the name of the feature

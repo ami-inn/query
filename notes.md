@@ -756,32 +756,153 @@ React Query will refetch when:
 4. 🌐 The device goes online
 
 
-<!-- 8 -->
+---
 
-error handling\
-what happens when things fails
+## ❌ Error Handling
 
-if using try catch and catch only logging not returning issues
-react query dont knwo the status of the query unless we tell it\
-react query wont be able to refetch or retry if it doesnt know the query failed
+### What happens when things fail?
 
-we can throw errors inside the query function\
-then react query will be able to catch it and set the status to error
-status we can use to identify the error state in the ui
+---
 
-debugging error from async dta can be difficult
-validation
-we can use zod or yup to validate the data we get from the server
-zod lets you define the expected shape of a respnse and validate the response against schema
+## ⚠️ Common Mistake with Try-Catch
 
-zod benefits
-saves memory in the cache by stripping unused data
-throws error when data is not in expected format
+If using `try-catch` and catch only logging (not returning), there are issues:
 
-zod tradeoffs
-runtime type checking adds overhead
-additional dependency
-expensive for large data structures
+- 🚫 React Query doesn't know the status of the query unless we tell it
+- 🔄 React Query won't be able to refetch or retry if it doesn't know the query failed
 
+---
 
-offline support\
+## ✅ Proper Error Handling
+
+### Throwing Errors
+
+We can **throw errors inside the query function**.
+
+Then:
+1. ✅ React Query will be able to catch it
+2. 🔴 Set the status to error
+3. 📊 Status we can use to identify the error state in the UI
+
+---
+
+## 🐛 Debugging Errors from Async Data Can Be Difficult
+
+---
+
+## ✔️ Validation
+
+We can use **Zod** or **Yup** to validate the data we get from the server.
+
+**Zod** lets you:
+- 📋 Define the expected shape of a response
+- ✅ Validate the response against schema
+
+---
+
+## 🎯 Zod Benefits
+
+- 💾 Saves memory in the cache by stripping unused data
+- ⚠️ Throws error when data is not in expected format
+
+---
+
+## ⚖️ Zod Tradeoffs
+
+- ⏱️ Runtime type checking adds overhead
+- 📦 Additional dependency
+- 💰 Expensive for large data structures
+
+---
+
+## 📴 Offline Support
+
+React Query will **pause queries when offline**.
+
+---
+
+## 💾 Persisting Queries and Mutations
+
+### When React Query Loses Its Cache:
+
+React Query loses its cache when:
+
+1. 🚪 A user closes the browser tab
+2. 🌐 Navigates to another site
+3. 🔄 Reloads the page
+
+---
+
+## 🗄️ React Query Have Persisters
+
+**Persisters** take whatever is in the query cache and persist it to a more permanent location.
+
+---
+
+## 🎯 When to Use Persister
+
+1. 🔄 When you want to maintain cache **across sessions**
+2. ⚡ When you want to improve load times by **hydrating cache from local storage or indexed DB**
+
+---
+
+## 📦 Persister Packages
+
+### Synchronous Data
+```bash
+@tanstack/query-sync-storage-persister
+```
+
+### Asynchronous Data
+```bash
+@tanstack/query-async-storage-persister
+```
+
+---
+
+## ⚠️ Important Note
+
+Get **gcTime as equal or greater than maxAge** to avoid your queries being garbage collected and removed from the storage too early.
+
+---
+
+## 🔄 What Do We Do When There Is No Data in the Cache?
+
+### During Restoration:
+
+When we're waiting for restoration to occur:
+
+1. 📊 React Query will render the data as usual
+2. ⏳ But it will not have any queries until the restoration is complete
+3. ✅ After the data is restored, React Query will re-render the components with the restored data
+
+---
+
+## 💾 Persisting Mutations Too
+
+Not only queries - we can persist **mutations too**!
+
+### 📝 Note:
+It's pretty rare.
+
+---
+
+## 🎯 Use Case for Persisting Mutations
+
+### Offline Support
+
+We can use it for **offline support**:
+
+1. 📴 User performs mutations while offline
+2. 🌐 When back online, the mutations are re-executed
+
+### 📝 Example:
+
+Suppose someone is writing a blog post while offline:
+
+1. 💾 We can persist the mutation to local storage
+2. 🌐 When back online, the mutation is re-executed to save the blog post to the server
+
+testing queries and mutations
+
+the more you tests behave like your actual usrs the more confidence they can give you

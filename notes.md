@@ -904,27 +904,96 @@ Suppose someone is writing a blog post while offline:
 2. 🌐 When back online, the mutation is re-executed to save the blog post to the server
 
 
-<!-- 3 -->
-testing queries and mutations
+---
 
-the more you tests behave like your actual usrs the more confidence they can give you
-testing queries and mutations is pretty straightforward as they are just functions that return promises.
-you can test them by calling the functions directly and asserting on the results.
-please refer more about testing
+## 🧪 Testing Queries and Mutations
 
+> 💡 **Key Principle:** The more your tests behave like your actual users, the more confidence they can give you.
 
-working with suspense
-when working in a component base architecture use a higher level loading handler to manage loading states that occur in your app
+Testing queries and mutations is pretty straightforward as they are just **functions that return promises**.
 
-usesuspensequery
-does not support the enabled property
-with suspense queries will run in serial when called in the same component
+### How to Test:
+- ✅ Call the functions directly
+- 📊 Assert on the results
 
-does not suppert the placeholderdata property
+> 📚 **Note:** Please refer more about testing in the official documentation.
 
-react suspensw3e enable us to write components that dont need to handle their own loading or error states but it at its best when used in combination with server side rendering'
+---
 
+## ⏸️ Working with Suspense
 
-server side rendering
+When working in a **component-based architecture**, use a **higher level loading handler** to manage loading states that occur in your app.
 
-react query is not a data fetching library it is a data synchronization library
+---
+
+## 🪝 useSuspenseQuery
+
+### ⚠️ Limitations:
+
+#### Does Not Support the `enabled` Property
+- 🔗 With Suspense, queries will run in **serial** when called in the same component
+
+#### Does Not Support the `placeholderData` Property
+
+---
+
+## 🎯 React Suspense Benefits
+
+**React Suspense** enables us to write components that don't need to handle their own loading or error states.
+
+> 💡 **Best Use:** It's at its best when used in combination with **server-side rendering**.
+
+---
+
+## 🖥️ Server Side Rendering
+
+> ⚡ **Important:** React Query is **not** a data fetching library - it is a **data synchronization library**.
+
+---
+
+## 🔌 WebSockets and React Query
+
+React Query is **not built to work with WebSockets out of the box**, but it can be used with WebSockets with some custom implementation.
+
+---
+
+## 🛠️ Implementation Strategies
+
+### Strategy 1: Update Cache Directly
+
+One way to do this is to use the WebSocket to **update the React Query cache directly** when new data is received.
+
+- 📝 This can be done using the **QueryClient's `setQueryData` method**
+
+### Strategy 2: Trigger Refetching
+
+Another way is to use the WebSocket to **trigger refetching of queries** when new data is available.
+
+- 🔄 This can be done using the **QueryClient's `refetchQueries` method**
+
+> 📚 **Note:** Please refer to the official documentation for more details and examples on how to use React Query with WebSockets.
+
+---
+
+## 🌐 What Are WebSockets?
+
+**WebSockets** enable the client to create a **long-running connection** to the server, allowing both the client and server to send messages to each other at any time.
+
+---
+
+## 🎯 WebSocket Strategies with React Query
+
+### Two Main Approaches:
+
+1. 📨 **Send a message** telling the client to refetch the data
+2. 📦 **Send the data directly** through the WebSocket and update the React Query cache directly
+
+---
+
+## 🔀 Decision Guide
+
+### If the WebSocket provides the full data set:
+- ✅ Use **`setQueryData`** to update the cache directly
+
+### If it doesn't:
+- 🔄 Use **`queryClient.invalidateQueries`** to refetch the data from the server

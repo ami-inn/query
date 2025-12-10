@@ -906,3 +906,10 @@ Suppose someone is writing a blog post while offline:
 testing queries and mutations
 
 the more you tests behave like your actual usrs the more confidence they can give you
+testing queries and mutations is pretty straightforward as they are just functions that return promises.
+you can test them by calling the functions directly and asserting on the results.
+please refer more about testing
+
+
+working with suspense
+

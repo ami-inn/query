@@ -922,4 +922,9 @@ with suspense queries will run in serial when called in the same component
 
 does not suppert the placeholderdata property
 
-react suspensw3e enable us to write components that dont need to handle their own loading or error states but it at its best when used in combination with server side rendering
+react suspensw3e enable us to write components that dont need to handle their own loading or error states but it at its best when used in combination with server side rendering'
+
+
+server side rendering
+
+react query is not a data fetching library it is a data synchronization library

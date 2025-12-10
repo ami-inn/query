@@ -903,6 +903,8 @@ Suppose someone is writing a blog post while offline:
 1. 💾 We can persist the mutation to local storage
 2. 🌐 When back online, the mutation is re-executed to save the blog post to the server
 
+
+<!-- 3 -->
 testing queries and mutations
 
 the more you tests behave like your actual usrs the more confidence they can give you
@@ -912,4 +914,12 @@ please refer more about testing
 
 
 working with suspense
+when working in a component base architecture use a higher level loading handler to manage loading states that occur in your app
 
+usesuspensequery
+does not support the enabled property
+with suspense queries will run in serial when called in the same component
+
+does not suppert the placeholderdata property
+
+react suspensw3e enable us to write components that dont need to handle their own loading or error states but it at its best when used in combination with server side rendering
